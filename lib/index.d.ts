@@ -24,6 +24,10 @@ declare module 'node-firebird' {
         query(query: string, params: any[], callback: QueryCallback): void;
         execute(query: string, params: any[], callback: QueryCallback): void;
         sequentially(query: string, params: any[], rowCallback: SequentialCallback, callback: SimpleCallback): void;
+        isClosed(): boolean;
+        on(channel: 'detach', listener: () => void): void;
+        on(channel: 'close', listener: () => void): void;
+        on(channel: 'error', listener: (error: Error) => void): void;
     }
 
     export interface Transaction {
@@ -40,6 +44,7 @@ declare module 'node-firebird' {
         user?: string;
         password?: string;
         lowercase_keys?: boolean;
+        disableAutoReconnect?: boolean;
         role?: string;           
         pageSize?: number; 
     }
